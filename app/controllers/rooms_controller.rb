@@ -1,9 +1,15 @@
 class RoomsController < ApplicationController
 
   def create
-    @room = Room.create
-    @entry1 = Entry.create(room_id: @room.id, user_id: current_user.id)
-    @entry2 = Entry.create(params.require(:entry).permit(:user_id, :room_id).merge(room_id: @room.id))
+    @room = Room.new
+    @room.save
+    @entry1 = Entry.new
+    @entry1.room_id = @room.id
+    @entry1.user_id = current_user.id
+    @entry1.save
+    @entry2 = Entry.new(entry2_params)
+    @entry2.room_id = @room.id
+    @entry2.save
     redirect_to room_path(@room)
   end
 
@@ -17,5 +23,8 @@ class RoomsController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
   end
-
+  private
+    def entry2_params
+      params.require(:entry).permit(:user_id)
+    end
 end

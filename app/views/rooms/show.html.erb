@@ -17,7 +17,8 @@
           <% end %>
         <% end %>
       <% end %>
-      <%= form_for @message do |f| %>
+      <%= form_with model: @message, url: messages_path, local: true do |f| %>
+      <!--%= form_for @message do |f| %>-->
         <%= f.text_field :content %>
         <%= f.hidden_field :room_id, value: @room.id %>
       <% end %>
