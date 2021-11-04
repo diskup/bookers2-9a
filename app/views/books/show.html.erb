@@ -36,7 +36,7 @@
       <table class="comment">
         <%= render "book_comments/comment", book: @book %>
       </table>
-      <%= form_with model:[@book, @book_comment], remote: true do |f| %>
+      <%= form_with model:[@book, @book_comment], url: book_book_comments_path(@book), remote: true do |f| %>
         <%= f.text_area :comment, rows:'5', class: 'form-control' %>
         <%= f.submit "送信する" %>
       <% end %>
